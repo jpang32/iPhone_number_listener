@@ -34,7 +34,7 @@ dtmf_freqs[0] = ((939, 940, 941, 942, 943), (1334, 1335, 1336, 1337, 1338))
 dtmf_freqs['#'] = ((939, 940, 941, 942, 943), (1475, 1476, 1477, 1478, 1479))
 
 sec = 1
-threshold = 100
+threshold = 70
 fs = 44100
 
 # Next step: Make it work in real time
@@ -60,4 +60,5 @@ while count < 10:
     count += len(nums)
     full_num.extend(nums)
 
+print(full_num)
 phone_gui.update(full_num)
