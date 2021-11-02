@@ -4,6 +4,7 @@ from scipy.fft import fft
 import numpy as np
 from phone_gui import PhoneGui
 from scipy.io.wavfile import write
+import tkinter as tk
 
 # Listen for 10 seconds and record all the numbers it hears
 # Process:
@@ -33,13 +34,15 @@ dtmf_freqs[0] = ((939, 940, 941, 942, 943), (1334, 1335, 1336, 1337, 1338))
 dtmf_freqs['#'] = ((939, 940, 941, 942, 943), (1475, 1476, 1477, 1478, 1479))
 
 sec = 1
-threshold = 5
+threshold = 100
 fs = 44100
 
 # Next step: Make it work in real time
 y = []
+full_num = []
+count = 0
 
-while True:
+while count < 10:
     rec = sd.rec(int(sec * fs), samplerate=fs, channels=1)
     sd.wait()
     rec = rec.squeeze()
@@ -53,3 +56,8 @@ while True:
         x in dtmf_freqs[key][1] for x in detected_freqs)]
 
     print(nums)
+
+    count += len(nums)
+    full_num.extend(nums)
+
+phone_gui.update(full_num)
